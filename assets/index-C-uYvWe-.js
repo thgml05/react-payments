@@ -12267,6 +12267,7 @@ const CardExpiryInput = ({
       if (name === "month") {
         setMonth(value);
         validateMonth(value, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
+        validateYear(year, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
       } else if (name === "year") {
         setYear(value);
         validateMonth(month, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
@@ -12296,12 +12297,11 @@ const CardExpiryInput = ({
       title: INPUT_CONTAINER.EXPIRE.TITLE,
       subTitle: INPUT_CONTAINER.EXPIRE.SUBTITLE,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "expiry", className: "label", children: "유효기간" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "label", children: "유효기간" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `inputContainer`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "input",
             {
-              id: "expiry",
               type: "text",
               name: "month",
               placeholder: "MM",
@@ -12317,7 +12317,6 @@ const CardExpiryInput = ({
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "input",
             {
-              id: "expiry",
               type: "text",
               name: "year",
               placeholder: "YY",
