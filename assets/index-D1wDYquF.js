@@ -12131,33 +12131,26 @@ const CARD_VALIDATION_INFO = {
   MIN_VALID_YEAR: 25
 };
 const isNumber = (number) => {
-  if (isNaN(Number(number))) return false;
-  return true;
+  return !isNaN(Number(number));
 };
-const numberLength = (number, length) => {
-  if (number.length !== length) return false;
-  return true;
+const invaludNumberLength = (number, length) => {
+  return number.length !== length;
 };
-const invalidNumber = (number) => {
-  if (Number(number[0]) !== CARD_VALIDATION_INFO.VISA_CARD_START_NUMBER && (Number(number.slice(0, 2)) < CARD_VALIDATION_INFO.MASTER_CARD_MIN_START_NUMBER || Number(number.slice(0, 2)) > CARD_VALIDATION_INFO.MASTER_CARD_MAX_START_NUMBER))
-    return false;
-  return true;
+const invalidCardNumber = (number) => {
+  return Number(number[0]) !== CARD_VALIDATION_INFO.VISA_CARD_START_NUMBER && (Number(number.slice(0, 2)) < CARD_VALIDATION_INFO.MASTER_CARD_MIN_START_NUMBER || Number(number.slice(0, 2)) > CARD_VALIDATION_INFO.MASTER_CARD_MAX_START_NUMBER);
 };
 const invalidMonth = (month) => {
-  if (Number(month) < CARD_VALIDATION_INFO.MIN_VALID_MONTH || Number(month) > CARD_VALIDATION_INFO.MAX_VALID_MONTH)
-    return false;
-  return true;
+  return Number(month) < CARD_VALIDATION_INFO.MIN_VALID_MONTH || Number(month) > CARD_VALIDATION_INFO.MAX_VALID_MONTH;
 };
 const invalidYear = (year) => {
-  if (Number(year) < CARD_VALIDATION_INFO.MIN_VALID_YEAR) return false;
-  return true;
+  return Number(year) < CARD_VALIDATION_INFO.MIN_VALID_YEAR;
 };
 const validateCardNumbers = (number, length) => {
   number.map((num, index) => {
     if (num.length > 0) {
       if (!isNumber(num))
         throw new CustomCardNumbersError(ERROR.REQUIRE.NUMBER, index);
-      if (!numberLength(num, length))
+      if (invaludNumberLength(num, length))
         throw new CustomCardNumbersError(
           `${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`,
           index
@@ -12166,24 +12159,24 @@ const validateCardNumbers = (number, length) => {
   });
 };
 const validateFirstCardNumbers = (number) => {
-  if (!invalidNumber(number))
+  if (invalidCardNumber(number))
     throw new CustomCardNumbersError(ERROR.CARD_NUMBER.INVALID, 0);
 };
 const validateMonth = (month, length) => {
   if (!isNumber(month)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (!numberLength(month, length))
+  if (invaludNumberLength(month, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
-  if (!invalidMonth(month)) throw new Error(ERROR.EXPIRY.INVALID_MONTH);
+  if (invalidMonth(month)) throw new Error(ERROR.EXPIRY.INVALID_MONTH);
 };
 const validateYear = (year, length) => {
   if (!isNumber(year)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (!numberLength(year, length))
+  if (invaludNumberLength(year, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
-  if (!invalidYear(year)) throw new Error(ERROR.EXPIRY.INVALID_YEAR);
+  if (invalidYear(year)) throw new Error(ERROR.EXPIRY.INVALID_YEAR);
 };
 const validateCVC = (number, length) => {
   if (!isNumber(number)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (!numberLength(number, length))
+  if (invaludNumberLength(number, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
 };
 const INPUT_CONTAINER = {
@@ -12206,17 +12199,14 @@ const CardNumbersInput = ({
   const [helperText, setHelperText] = reactExports.useState("");
   const [errorIndex, setErrorIndex] = reactExports.useState(null);
   const inputRefs = reactExports.useRef([]);
-  const handleChange = (index) => (e) => {
+  const handleCardNumberInput = (e, index) => {
     var _a, _b, _c;
     try {
       const newCardNumbers = [...cardNumbers];
       newCardNumbers[index] = e.target.value;
       setCardNumbers(newCardNumbers);
       validateFirstCardNumbers(newCardNumbers[0]);
-      validateCardNumbers(
-        newCardNumbers,
-        CARD_VALIDATION_INFO.CARD_MAX_LENGTH
-      );
+      validateCardNumbers(newCardNumbers, CARD_VALIDATION_INFO.CARD_MAX_LENGTH);
       if (helperText !== "") {
         (_a = inputRefs.current[index]) == null ? void 0 : _a.focus();
       }
@@ -12248,7 +12238,7 @@ const CardNumbersInput = ({
             placeholder: "1234",
             name: `card${index + 1}`,
             value,
-            onChange: handleChange(index),
+            onChange: (e) => handleCardNumberInput(e, index),
             ref: (element) => {
               inputRefs.current.push(element);
             },
@@ -12257,7 +12247,7 @@ const CardNumbersInput = ({
           },
           index
         )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `helperText`, children: helperText })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `helperText`, "data-testid": "helper-text", children: helperText })
       ]
     }
   );
@@ -12277,7 +12267,6 @@ const CardExpiryInput = ({
       if (name === "month") {
         setMonth(value);
         validateMonth(value, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
-        validateYear(year, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
       } else if (name === "year") {
         setYear(value);
         validateMonth(month, CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH);
@@ -12291,16 +12280,15 @@ const CardExpiryInput = ({
   };
   const catchError = (error) => {
     var _a, _b;
-    if (error instanceof Error) {
-      if (error.message === ERROR.EXPIRY.INVALID_MONTH) {
-        (_a = inputRefs.current[0]) == null ? void 0 : _a.focus();
-        setErrorIndex(0);
-      } else if (error.message === ERROR.EXPIRY.INVALID_YEAR) {
-        (_b = inputRefs.current[1]) == null ? void 0 : _b.focus();
-        setErrorIndex(1);
-      }
-      setHelperText(error.message);
+    if (!(error instanceof Error)) return;
+    if (error.message === ERROR.EXPIRY.INVALID_MONTH) {
+      (_a = inputRefs.current[0]) == null ? void 0 : _a.focus();
+      setErrorIndex(0);
+    } else if (error.message === ERROR.EXPIRY.INVALID_YEAR) {
+      (_b = inputRefs.current[1]) == null ? void 0 : _b.focus();
+      setErrorIndex(1);
     }
+    setHelperText(error.message);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     InputContainer,
@@ -12341,7 +12329,7 @@ const CardExpiryInput = ({
             }
           )
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "helperText", children: helperText })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "helperText", "data-testid": "helper-text", children: helperText })
       ]
     }
   );
@@ -12378,7 +12366,7 @@ const CVCInput = ({ CVC, setCVC }) => {
         maxLength: CARD_VALIDATION_INFO.CVC_MAX_LENGTH
       }
     ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "helperText", children: helperText })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "helperText", "data-testid": "helper-text", children: helperText })
   ] });
 };
 const preview = "_preview_3fedz_1";
@@ -12395,13 +12383,21 @@ const styles = {
   cardNumberContainer,
   date
 };
+const VISA_CARD_CONDITION = 4;
+const MASTER_CARD_CONDITIONS = ["51", "52", "53", "54", "55"];
+const UNVISIBLE_CARD_NUMBER_CONDITIONS = [2, 3];
 const CardPreview = ({ cardNumbers, month, year }) => {
+  const isVisaCard = VISA_CARD_CONDITION === Number(cardNumbers[0][0]);
+  const isMasterCard = MASTER_CARD_CONDITIONS.some(
+    (condition) => cardNumbers[0].startsWith(condition)
+  );
+  const isUnVisibleCardNumber = (index) => UNVISIBLE_CARD_NUMBER_CONDITIONS.includes(index);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.preview, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./magnetic.png", alt: "magnetic", className: styles.magnetic }),
-    Number(cardNumbers[0][0]) === CARD_VALIDATION_INFO.VISA_CARD_START_NUMBER && /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./Visa.png", alt: "visa", className: styles.visa }),
-    Number(cardNumbers[0].slice(0, 2)) >= CARD_VALIDATION_INFO.MASTER_CARD_MIN_START_NUMBER && Number(cardNumbers[0].slice(0, 2)) <= CARD_VALIDATION_INFO.MASTER_CARD_MAX_START_NUMBER && /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./Mastercard.png", alt: "visa", className: styles.visa }),
+    isVisaCard && /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./Visa.png", alt: "visa", className: styles.visa }),
+    isMasterCard && /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./Mastercard.png", alt: "visa", className: styles.visa }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.cardInfo, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.cardNumberContainer, children: cardNumbers.map((number, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { "data-testid": `card-number-${index}`, children: index === 2 || index === 3 ? number ? "•".repeat(number.length).padEnd(CARD_VALIDATION_INFO.CARD_MAX_LENGTH, " ") : "    " : number ? number.padEnd(CARD_VALIDATION_INFO.CARD_MAX_LENGTH, " ") : "    " }, index)) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.cardNumberContainer, children: cardNumbers.map((number, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { "data-testid": `card-number-${index}`, children: isUnVisibleCardNumber(index) ? "•".repeat(number.length).padEnd(CARD_VALIDATION_INFO.CARD_MAX_LENGTH, " ") : number.padEnd(CARD_VALIDATION_INFO.CARD_MAX_LENGTH, " ") }, index)) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.date, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
         month,
         month.length === CARD_VALIDATION_INFO.EXPIRE_DATE_MAX_LENGTH && "/",
