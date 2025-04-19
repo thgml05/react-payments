@@ -12231,7 +12231,7 @@ const CardNumbersInput = ({
       title: INPUT_CONTAINER.CARD_NUMBERS.TITLE,
       subTitle: INPUT_CONTAINER.CARD_NUMBERS.SUBTITLE,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "카드 번호" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "label", children: "카드 번호" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "inputContainer", children: cardNumbers.map((value, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "input",
           {
@@ -12296,7 +12296,7 @@ const CardExpiryInput = ({
       title: INPUT_CONTAINER.EXPIRE.TITLE,
       subTitle: INPUT_CONTAINER.EXPIRE.SUBTITLE,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "", className: "label", children: "유효기간" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "label", children: "유효기간" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `inputContainer`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "input",
@@ -12351,7 +12351,7 @@ const CVCInput = ({ CVC, setCVC }) => {
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(InputContainer, { title: INPUT_CONTAINER.CVC.TITLE, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "label", children: "CVC" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "label", children: "CVC" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "inputContainer", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       "input",
       {
