@@ -12133,7 +12133,7 @@ const CARD_VALIDATION_INFO = {
 const isNumber = (number) => {
   return !isNaN(Number(number));
 };
-const invaludNumberLength = (number, length) => {
+const invalidNumberLength = (number, length) => {
   return number.length !== length;
 };
 const invalidCardNumber = (number) => {
@@ -12150,7 +12150,7 @@ const validateCardNumbers = (number, length) => {
     if (num.length > 0) {
       if (!isNumber(num))
         throw new CustomCardNumbersError(ERROR.REQUIRE.NUMBER, index);
-      if (invaludNumberLength(num, length))
+      if (invalidNumberLength(num, length))
         throw new CustomCardNumbersError(
           `${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`,
           index
@@ -12164,19 +12164,19 @@ const validateFirstCardNumbers = (number) => {
 };
 const validateMonth = (month, length) => {
   if (!isNumber(month)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (invaludNumberLength(month, length))
+  if (invalidNumberLength(month, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
   if (invalidMonth(month)) throw new Error(ERROR.EXPIRY.INVALID_MONTH);
 };
 const validateYear = (year, length) => {
   if (!isNumber(year)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (invaludNumberLength(year, length))
+  if (invalidNumberLength(year, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
   if (invalidYear(year)) throw new Error(ERROR.EXPIRY.INVALID_YEAR);
 };
 const validateCVC = (number, length) => {
   if (!isNumber(number)) throw new Error(ERROR.REQUIRE.NUMBER);
-  if (invaludNumberLength(number, length))
+  if (invalidNumberLength(number, length))
     throw new Error(`${length}${ERROR.REQUIRE.SPECIFIC_LENGTH}`);
 };
 const INPUT_CONTAINER = {
@@ -12296,11 +12296,12 @@ const CardExpiryInput = ({
       title: INPUT_CONTAINER.EXPIRE.TITLE,
       subTitle: INPUT_CONTAINER.EXPIRE.SUBTITLE,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "label", children: "유효기간" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "expiry", className: "label", children: "유효기간" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `inputContainer`, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "input",
             {
+              id: "expiry",
               type: "text",
               name: "month",
               placeholder: "MM",
@@ -12316,6 +12317,7 @@ const CardExpiryInput = ({
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "input",
             {
+              id: "expiry",
               type: "text",
               name: "year",
               placeholder: "YY",
