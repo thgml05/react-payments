@@ -1,0 +1,231 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin: auto;
+  max-width: 400px;
+}
+
+.label {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+.inputContainer {
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 10px;
+  border: 1px solid #acacac;
+  border-radius: 5px;
+}
+
+.input:focus {
+  outline: 1px solid black;
+}
+
+.card-brand-selector {
+  width: 100%;
+  padding: 10px 10px;
+  margin-top: 20px;
+  border: 1px solid #acacac;
+  border-radius: 5px;
+}
+
+.helperText {
+  color: red;
+  font-size: 15px;
+  min-height: 20px;
+}
+
+.errorInput {
+  outline: 1px solid red;
+}
+
+.errorInput:focus {
+  outline: 1px solid red;
+}
+._inputContainer_5mu3n_1 {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+._inputTitle_5mu3n_7 {
+  font-size: 25px;
+  margin: 10px 0 0 0;
+}
+
+._inputSubTitle_5mu3n_12 {
+  font-size: 15px;
+  margin: 5px 0;
+  color: #8b95a1;
+}
+:root {
+  --BC-card-background: #f04651;
+  --shinhan-card-background: #0046ff;
+  --kakao-card-background: #ffe600;
+  --hyundai-card-background: #000000;
+  --woori-card-background: #007bc8;
+  --lotte-card-background: #ed1c24;
+  --hana-card-background: #009490;
+  --kb-card-background: #6a6056;
+}
+
+._preview_16x9c_12 {
+  position: relative;
+  width: 300px;
+  height: 180px;
+  background-color: #333333;
+  border-radius: 10px;
+  box-shadow: 7px 6px 14px -6px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 7px 6px 14px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 6px 14px -6px rgba(0, 0, 0, 0.75);
+  color: white;
+  font-family: monospace;
+  margin: 70px 0;
+}
+
+._bc_16x9c_26 {
+  background-color: var(--BC-card-background);
+}
+
+._shinhan_16x9c_30 {
+  background-color: var(--shinhan-card-background);
+}
+
+._kakao_16x9c_34 {
+  background-color: var(--kakao-card-background);
+}
+
+._hyundai_16x9c_38 {
+  background-color: var(--hyundai-card-background);
+}
+
+._woori_16x9c_42 {
+  background-color: var(--woori-card-background);
+}
+
+._lotte_16x9c_46 {
+  background-color: var(--lotte-card-background);
+}
+
+._hana_16x9c_50 {
+  background-color: var(--hana-card-background);
+}
+
+._kb_16x9c_54 {
+  background-color: var(--kb-card-background);
+}
+
+._magnetic_16x9c_58 {
+  position: absolute;
+  width: 50px;
+  height: 33px;
+  top: 15px;
+  left: 20px;
+}
+
+._visa_16x9c_66 {
+  position: absolute;
+  width: 50px;
+  height: 33px;
+  top: 15px;
+  left: 230px;
+}
+
+._cardInfo_16x9c_74 {
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 25%;
+  text-align: center;
+}
+
+._cardNumberContainer_16x9c_81 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+._cardNumberContainer_16x9c_81 > span {
+  text-align: center;
+  white-space: pre;
+  flex: 1;
+}
+
+._date_16x9c_95 {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+._button_187h5_1 {
+  /* display: none; */
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  padding: 15px 10px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  border-radius: 5px;
+}
+
+._active_187h5_13 {
+  display: block;
+}
+._container_1qjiq_1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._small-container_1qjiq_9 {
+  max-width: 400px;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  text-align: center;
+}
+
+._check-image_1qjiq_20 {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+._text_1qjiq_26 {
+  font-size: 25px;
+  font-weight: 700;
+  margin: 80px auto;
+}
